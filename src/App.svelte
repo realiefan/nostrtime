@@ -211,21 +211,21 @@
   loadCalendar()
 </script>
 
-<div class="absolute inset-0 flex flex-col max-w-screen-md mx-auto">
+<div class="absolute inset-0  flex flex-col max-w-screen px-0.5 lg:px-20 mx-auto  bg-[#18181a]">
   <div class="p-4 flex justify-between grid grid-cols-3">
-    <h1 class="text-2xl">NostrTime</h1>
+    <h1 class="text-xl font-semibold text-blue-500">Calander+</h1>
     <div class="flex justify-center items-center gap-2">
-      <span class="p-2 pt-3 cursor-pointer text-xs" on:click={prevMonth}>◀</span>
-      <span class="font-bold w-36 text-center">
+      <span class="p-1 pt-3 text-gray-300 cursor-pointer text-xs" on:click={prevMonth}>◀</span>
+      <span class="font-bold w-36 text-sm text-gray-300 text-center">
         {month.date.toLocaleString("default", {month: "long", year: "numeric"})}
       </span>
-      <span class="p-2 pt-3 cursor-pointer text-xs" on:click={nextMonth}>▶</span>
+      <span class="p-1 pt-3 cursor-pointer text-gray-300 text-xs" on:click={nextMonth}>▶</span>
     </div>
     <div class="flex justify-end">
       {#if user}
-        <button class={`padding button1`} on:click={newEvent}> Add Event </button>
+        <button class={`text-gray-300 text-sm font-bold  py-1`} on:click={newEvent}> Add Event </button>
       {:else}
-        <button class={`padding button1`} on:click={login}> Log In </button>
+        <button class={`text-gray-300 text-sm font-bold  py-1 `} on:click={login}> Log In </button>
       {/if}
     </div>
   </div>
@@ -247,7 +247,7 @@
                     "relative z-10 cursor-pointer p-1 whitespace-nowrap",
                     {
                       "z-20": (!isContinuation || date.getDay() === 0) && isContinued,
-                      "bg-white text-blue-500 border border-solid border-blue-500": !isOwn,
+                      "bg-black text-blue-500 border text-xs border-solid border-blue-500": !isOwn,
                       "bg-blue-500 text-white": isOwn,
                       "-ml-1 border-l-0": isContinuation,
                       "rounded-s": !isContinuation,
@@ -266,68 +266,68 @@
       {/each}
     {/key}
   </div>
-  <small class="p-2 text-gray-400 text-center"> NostrTime is powered by NIP-52. </small>
+  <small class="p-2 text-gray-400 text-center"> NostrTime is powered by NIP-52 </small>
   {#if draft}
     {@const isEditable = (!draft.event && user) || draft.event?.pubkey === user?.hexpubkey()}
     <div
       transition:fade
-      class="cursor-pointer fixed z-20 inset-0 bg-black/50 p-4"
+      class="cursor-pointer fixed z-20 inset-0 bg-black/50 p-4 "
       on:click={clearEvent}>
       <div
         in:fly={{y: 20}}
-        class="cursor-auto bg-white rounded-xl p-4 flex flex-col gap-2"
+        class="cursor-auto bg-[#252528] rounded-xl p-4 flex flex-col gap-2 "
         on:click|stopPropagation>
         <h2 class="text-xl">Event Details</h2>
-        <div class="grid grid-cols-3 items-center gap-2">
+        <div class="grid grid-cols-3 text-gray-300 font-semibold items-center gap-2 ">
           <label for="name">Name</label>
           <input
             disabled={!isEditable}
             name="name"
             type="text"
-            class={`padding card-default col-span-2 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.name} />
           <label for="description">Description</label>
           <input
             disabled={!isEditable}
             name="description"
             type="text"
-            class={`padding card-default col-span-2 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.content} />
           <label for="start">Start</label>
           <input
             disabled={!isEditable}
             name="startDate"
             type="date"
-            class={`padding card-default col-span-2 sm:col-span-1 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 sm:col-span-1 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.startDate} />
           <div class="col-span-1 sm:hidden" />
           <input
             disabled={!isEditable}
             name="startTime"
             type="time"
-            class={`padding card-default col-span-2 sm:col-span-1 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 sm:col-span-1 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.startTime} />
           <label for="end">End</label>
           <input
             disabled={!isEditable}
             name="endDate"
             type="date"
-            class={`padding card-default col-span-2 sm:col-span-1 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 sm:col-span-1 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.endDate} />
           <div class="col-span-1 sm:hidden" />
           <input
             disabled={!isEditable}
             name="endTime"
             type="time"
-            class={`padding card-default col-span-2 sm:col-span-1 rounded-xl`}
+            class={`padding bg-[#18181a] card-default col-span-2 sm:col-span-1 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1`}
             bind:value={draft.endTime} />
         </div>
         {#if isEditable}
           <div class="flex justify-end gap-2">
             {#if draft.event}
-              <button class={`padding button3`} on:click={deleteEvent}> Delete </button>
+              <button class={`text-gray-300 text-md font-bold  py-2`} on:click={deleteEvent}> Delete </button>
             {/if}
-            <button class={`padding button1`} on:click={publishEvent}> Save Event </button>
+            <button class={`text-gray-300 text-md font-bold  py-2`} on:click={publishEvent}> Save Event </button>
           </div>
         {/if}
       </div>
