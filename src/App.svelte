@@ -211,7 +211,8 @@
   loadCalendar()
 </script>
 
-<div class="absolute inset-0  flex flex-col max-w-screen px-0.5 lg:px-20 mx-auto  bg-[#18181a]">
+
+<div class="absolute inset-0  flex flex-col max-w-screen px-0.5 md:p-10 mx-auto  bg-[#18181a]">
   <div class="p-4 flex justify-between grid grid-cols-3">
     <h1 class="text-xl font-semibold text-blue-500">Calander+</h1>
     <div class="flex justify-center items-center gap-2">
