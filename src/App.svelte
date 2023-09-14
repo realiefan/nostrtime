@@ -248,8 +248,8 @@
                     "relative z-10 cursor-pointer p-1 whitespace-nowrap",
                     {
                       "z-20": (!isContinuation || date.getDay() === 0) && isContinued,
-                      "bg-black text-blue-500 border text-xs border-solid border-blue-500": !isOwn,
-                      "bg-blue-500 text-white": isOwn,
+                      "bg-black text-blue-500 border text-xs border-solid border-blue-500 hidden ": !isOwn,
+                      "bg-blue-900 text-white": isOwn,
                       "-ml-1 border-l-0": isContinuation,
                       "rounded-s": !isContinuation,
                       "-mr-1 border-r-0": isContinued,
