@@ -114,6 +114,7 @@
   };
 
   const login = async () => {
+  try {
     const ndk = await pendingNdk;
 
     ndk.signer = new NDKNip07Signer();
@@ -123,7 +124,12 @@
     user = await ndk.signer.user();
 
     loadCalendar();
-  };
+  } catch (error) {
+    // Handle the error by displaying it as an alert
+    alert(` ${error.message} , if you're IOS user, visit this URL "Cal.NostrNet.work"`);
+  }
+};
+
 
   const loadCalendar = async () => {
     const ndk = await pendingNdk;
@@ -150,8 +156,8 @@
 
     draft = {
       id: crypto.randomUUID(),
-      name: "My Event",
-      content: "An example event",
+      name: "Event",
+      content: "Description",
       startDate: date,
       startTime: time,
       endDate: date,
@@ -219,29 +225,29 @@
   <div class="p-4 flex justify-between grid grid-cols-3">
     <h1 class="text-xl font-semibold text-blue-500">Calendar+</h1>
     <div class="flex justify-center items-center gap-2">
-      <span class="p-1 pt-3 text-gray-300 cursor-pointer text-xs" on:click={prevMonth}>◀</span>
-      <span class="font-bold w-36 text-sm text-gray-300 text-center">
+      <span class="p-1 pt-3 text-gray-400 cursor-pointer text-xs" on:click={prevMonth}>◀</span>
+      <span class="font-bold w-36 text-sm text-gray-400 text-center">
         {month.date.toLocaleString("default", { month: "long", year: "numeric" })}
       </span>
-      <span class="p-1 pt-3 cursor-pointer text-gray-300 text-xs" on:click={nextMonth}>▶</span>
+      <span class="p-1 pt-3 cursor-pointer text-gray-400 text-xs" on:click={nextMonth}>▶</span>
     </div>
     <div class="flex justify-end">
       {#if user}
-        <button class="text-gray-300 text-sm font-bold py-1" on:click={newEvent}>Add Event</button>
+        <button class="text-[#3b82f7] text-sm font-bold py-1" on:click={newEvent}>Add Event</button>
       {:else}
-        <button class="text-gray-300 text-sm font-bold py-1" on:click={login}>Log In</button>
+        <button class="text-[#3b82f7] text-sm font-bold py-1" on:click={login}>Log In</button>
       {/if}
     </div>
   </div>
-  <div class="grid grid-cols-7 mx-2 card-default-t  card-default-l">
+  <div class="grid grid-cols-7 mx-2 card-default-t card-default-l" style="border-color: #808080;">
     {#key key}
       {#each month.days as date, i}
         <div class="aspect-square text-gray-500 text-xs relative">
-          <div class="absolute inset-0  card-default-r card-default-b"></div>
+          <div class="absolute inset-0  card-default-r  card-default-b" style="border-color: #808080;"> </div>
           <div class="p-1">
             {date.getDate()}
             <div class="flex flex-col h-20 gap-1">
-              <div class="relative z-10 cursor-pointer p-1 whitespace-nowrap overflow-y-auto" style="max-height: auto;">
+              <div class="relative z-10 cursor-pointer p-0.5 whitespace-nowrap overflow-y-auto" style="max-height: auto;  ">
                 {#each getDateEvents(date) as event}
                   {@const meta = getMeta(event)}
                   {@const isContinuation = eventIsInRange(changeDay(date, -1), event)}
@@ -251,8 +257,8 @@
                     class={cx(
                       "cursor-pointer text-xs whitespace-nowrap",
                       {
-                        "z-20 bg-black text-blue-500 border text-xs border-solid border-blue-500 hidden": !isOwn,
-                        "bg-blue-900 my-2 text-white": isOwn,
+                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
+                        " my-1 text-[#3b82f7] border border-[#3b82f7]": isOwn,
                         "-ml-1 border-l-0": isContinuation,
                         "rounded-s": !isContinuation,
                         "-mr-1 border-r-0": isContinued,
@@ -271,13 +277,13 @@
       {/each}
     {/key}
   </div>
-  <small class="p-2 text-gray-400 text-center">Calendar+ is powered by NIP-52</small>
+  <small class="p-2 text-gray-400 text-center">Calendar+ is powered by NIP-52, managed by NostrNet.wok</small>
   
   {#if draft}
     {@const isEditable = (!draft.event && user) || draft.event?.pubkey === user?.hexpubkey()}
     <div transition:fade class="cursor-pointer fixed z-20 inset-0 bg-black/50 p-4" on:click={clearEvent}>
       <div in:fly={{ y: 20 }} class="cursor-auto bg-[#252528] rounded-xl p-4 flex flex-col gap-2" on:click|stopPropagation>
-        <h2 class="text-xl">Event Details</h2>
+        <h2 class="text-xl text-gray-300 font-bold">Event Details</h2>
         <div class="grid grid-cols-3 text-gray-300 font-semibold items-center gap-2">
           <label for="name">Name</label>
           <input disabled={!isEditable} name="name" type="text" class="padding bg-[#18181a] card-default col-span-2 rounded-xl border-none shadow-xl font-semibold text-sm pl-2 p-1" bind:value={draft.name} />
@@ -297,7 +303,7 @@
             {#if draft.event}
               <button class="text-gray-300 text-md font-bold py-2" on:click={deleteEvent}>Delete</button>
             {/if}
-            <button class="text-gray-300 text-md font-bold py-2" on:click={publishEvent}>Save Event</button>
+            <button class="text-[#3b82f7] text-md font-bold py-2 " on:click={publishEvent}>Save Event</button>
           </div>
         {/if}
       </div>
