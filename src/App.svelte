@@ -156,8 +156,8 @@
 
     draft = {
       id: crypto.randomUUID(),
-      name: "Event",
-      content: "Description",
+      name: "My Event",
+      content: "My Description",
       startDate: date,
       startTime: time,
       endDate: date,
@@ -239,14 +239,27 @@
       {/if}
     </div>
   </div>
+  <div class="grid grid-cols-7 mx-2 card-default-t card-default-r card-default-l" style="border-color: #808080;">
+    <div class="text-center text-gray-400 text-xs py-2">Sun</div>
+    <div class="text-center text-gray-400 text-xs py-2">Mon</div>
+    <div class="text-center text-gray-400 text-xs py-2">Tue</div>
+    <div class="text-center text-gray-400 text-xs py-2">Wed</div>
+    <div class="text-center text-gray-400 text-xs py-2">Thu</div>
+    <div class="text-center text-gray-400 text-xs py-2">Fri</div>
+    <div class="text-center text-gray-400 text-xs py-2">Sat</div>
+    </div>
+  
+  <!-- Add a row for day names -->
   <div class="grid grid-cols-7 mx-2 card-default-t card-default-l" style="border-color: #808080;">
+
+    
     {#key key}
       {#each month.days as date, i}
         <div class="aspect-square text-gray-500 text-xs relative">
           <div class="absolute inset-0  card-default-r  card-default-b" style="border-color: #808080;"> </div>
           <div class="p-1">
             {date.getDate()}
-            <div class="flex flex-col h-20  gap-1">
+            <div class="flex flex-col h-16  gap-1">
               <div class="relative z-10 cursor-pointer p-0.5 whitespace-nowrap overflow-y-auto" style="max-height: auto;  ">
                 {#each getDateEvents(date) as event}
                   {@const meta = getMeta(event)}
@@ -258,7 +271,7 @@
                       "cursor-pointer text-xs whitespace-nowrap",
                       {
                         "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
-                        " my-1 text-[#3b82f7] border border-[#3b82f7]": isOwn,
+                        " my-1 text-[#3b82f7] px-0.5 border border-[#3b82f7]": isOwn,
                         "-ml-1 border-l-0": isContinuation,
                         "rounded-s": !isContinuation,
                         "-mr-1 border-r-0": isContinued,
