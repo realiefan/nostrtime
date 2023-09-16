@@ -218,6 +218,10 @@
     }
   };
 
+  
+
+  
+
   loadCalendar();
 </script>
 
@@ -253,45 +257,55 @@
   <div class="grid grid-cols-7 mx-2 card-default-t card-default-l" style="border-color: #808080;">
 
     
-    {#key key}
-      {#each month.days as date, i}
-        <div class="aspect-square text-gray-500 text-xs relative">
-          <div class="absolute inset-0  card-default-r  card-default-b" style="border-color: #808080;"> </div>
-          <div class="p-1">
+     {#key key}
+    {#each month.days as date, i}
+      <div class="aspect-square text-gray-500 text-xs relative">
+        <div class="absolute inset-0  card-default-r  card-default-b" style="border-color: #808080;"> </div>
+        <div class="p-1">
+          <!-- Add a click event handler to each date cell -->
+          <div
+            class="cursor-pointer text-xs whitespace-nowrap"
+            on:click={() => openAddEventForm(date)}
+          >
             {date.getDate()}
-            <div class="flex flex-col h-16  gap-1">
-              <div class="relative z-10 cursor-pointer p-0.5 whitespace-nowrap overflow-y-auto" style="max-height: auto;  ">
-                {#each getDateEvents(date) as event}
-                  {@const meta = getMeta(event)}
-                  {@const isContinuation = eventIsInRange(changeDay(date, -1), event)}
-                  {@const isContinued = eventIsInRange(changeDay(date, 1), event)}
-                  {@const isOwn = event.pubkey === user?.hexpubkey()}
-                  <div
-                    class={cx(
-                      "cursor-pointer text-xs whitespace-nowrap",
-                      {
-                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
-                        " my-1 text-[#3b82f7] px-0.5 border border-[#3b82f7]": isOwn,
-                        "-ml-1 border-l-0": isContinuation,
-                        "rounded-s": !isContinuation,
-                        "-mr-1 border-r-0": isContinued,
-                        "rounded-e text-ellipsis overflow-hidden": !isContinued,
-                        "text-white/0": isContinuation && date.getDay() !== 0,
-                      }
-                    )}
-                    on:click={() => editEvent(event)}>
-                    {meta.name}
-                  </div>
-                {/each}
-              </div>
+          </div>
+          <div class="flex flex-col h-16  gap-1">
+            <div class="relative z-10 cursor-pointer p-0.5 whitespace-nowrap overflow-y-auto" style="max-height: auto;">
+              {#each getDateEvents(date) as event}
+                {@const meta = getMeta(event)}
+                {@const isContinuation = eventIsInRange(changeDay(date, -1), event)}
+                {@const isContinued = eventIsInRange(changeDay(date, 1), event)}
+                {@const isOwn = event.pubkey === user?.hexpubkey()}
+                <div
+                  class={cx(
+                    "cursor-pointer text-xs whitespace-nowrap",
+                    {
+                      "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
+                      " my-1 text-[#3b82f7] px-0.5 border border-[#3b82f7]": isOwn,
+                      "-ml-1 border-l-0": isContinuation,
+                      "rounded-s": !isContinuation,
+                      "-mr-1 border-r-0": isContinued,
+                      "rounded-e text-ellipsis overflow-hidden": !isContinued,
+                      "text-white/0": isContinuation && date.getDay() !== 0,
+                    }
+                  )}
+                  on:click={() => editEvent(event)}
+                >
+                  {meta.name}
+                </div>
+              {/each}
             </div>
           </div>
         </div>
-      {/each}
-    {/key}
-  </div>
-  <small class="p-2 text-gray-400 text-center">Calendar+ is powered by NIP-52, managed by NostrNet.wok</small>
-  
+      </div>
+    {/each}
+  {/key}
+</div>
+
+  <small class="p-2 text-gray-400 text-center">
+    Calendar+ is powered by NIP-52, managed by 
+    <a href="https://www.nostrnet.work/" class="text-blue-500" target="_blank" rel="noopener noreferrer">NostrNet</a>
+  </small>
   {#if draft}
     {@const isEditable = (!draft.event && user) || draft.event?.pubkey === user?.hexpubkey()}
     <div class="fixed z-20 inset-0 flex items-center justify-center bg-black/50 p-4" on:click={clearEvent}>
