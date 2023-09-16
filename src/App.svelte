@@ -301,7 +301,7 @@
         {#if isEditable}
           <div class="flex justify-end gap-2">
             {#if draft.event}
-              <button class="text-gray-300 text-md font-bold py-2" on:click={deleteEvent}>Delete</button>
+              <button class="text-red-300  text-md font-bold py-2" on:click={deleteEvent}>Delete</button>
             {/if}
             <button class="text-[#3b82f7] text-md font-bold py-2 " on:click={publishEvent}>Save Event</button>
           </div>
