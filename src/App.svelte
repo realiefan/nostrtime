@@ -257,8 +257,8 @@
                     class={cx(
                       "cursor-pointer text-xs whitespace-nowrap",
                       {
-                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
-                        " my-1 text-[#3b82f7] border border-[#3b82f7]": isOwn,
+                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid  border-blue-500 hidden": !isOwn,
+                        " my-1 text-[#3b82f7] font-semibold border  border-[#3b82f7]": isOwn,
                         "-ml-1 border-l-0": isContinuation,
                         "rounded-s": !isContinuation,
                         "-mr-1 border-r-0": isContinued,
