@@ -221,7 +221,7 @@
   loadCalendar();
 </script>
 
-<div class="absolute inset-0 flex flex-col max-w-screen px-0.5 md:max-w-md mx-auto bg-[#18181a]">
+<div class="absolute inset-0 flex flex-col max-w-screen px-0.5 lg:max-w-2xl mx-auto bg-[#18181a]">
   <div class="p-4 flex justify-between grid grid-cols-3">
     <h1 class="text-xl font-semibold text-blue-500">Calendar+</h1>
     <div class="flex justify-center items-center gap-2">
@@ -246,7 +246,7 @@
           <div class="absolute inset-0  card-default-r  card-default-b" style="border-color: #808080;"> </div>
           <div class="p-1">
             {date.getDate()}
-            <div class="flex flex-col h-20 gap-1">
+            <div class="flex flex-col h-20  gap-1">
               <div class="relative z-10 cursor-pointer p-0.5 whitespace-nowrap overflow-y-auto" style="max-height: auto;  ">
                 {#each getDateEvents(date) as event}
                   {@const meta = getMeta(event)}
@@ -257,8 +257,8 @@
                     class={cx(
                       "cursor-pointer text-xs whitespace-nowrap",
                       {
-                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid  border-blue-500 hidden": !isOwn,
-                        " my-1 text-[#3b82f7] font-semibold border  border-[#3b82f7]": isOwn,
+                        "z-20 bg-black text-[#3b82f7] border text-xs border-solid border-blue-500 hidden": !isOwn,
+                        " my-1 text-[#3b82f7] border border-[#3b82f7]": isOwn,
                         "-ml-1 border-l-0": isContinuation,
                         "rounded-s": !isContinuation,
                         "-mr-1 border-r-0": isContinued,
@@ -281,8 +281,8 @@
   
   {#if draft}
     {@const isEditable = (!draft.event && user) || draft.event?.pubkey === user?.hexpubkey()}
-    <div transition:fade class="cursor-pointer fixed z-20 inset-0 bg-black/50 p-4" on:click={clearEvent}>
-      <div in:fly={{ y: 20 }} class="cursor-auto bg-[#252528] rounded-xl p-4 flex flex-col gap-2" on:click|stopPropagation>
+    <div class="fixed z-20 inset-0 flex items-center justify-center bg-black/50 p-4" on:click={clearEvent}>
+    <div in:fly={{ y: 20 }} class="bg-[#252528] lg:max-w-2xl rounded-xl p-4 flex flex-col gap-2" on:click|stopPropagation>
         <h2 class="text-xl text-gray-300 font-bold">Event Details</h2>
         <div class="grid grid-cols-3 text-gray-300 font-semibold items-center gap-2">
           <label for="name">Name</label>
